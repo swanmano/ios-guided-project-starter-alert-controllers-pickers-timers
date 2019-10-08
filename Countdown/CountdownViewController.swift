@@ -38,6 +38,10 @@ class CountdownViewController: UIViewController {
     // MARK: - Actions
     
     @IBAction func startButtonTapped(_ sender: UIButton) {
+        let timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false, block: timerFinished(timer:))
+    }
+    
+    private func timerFinished(timer: Timer) {
         showAlert()
     }
     
