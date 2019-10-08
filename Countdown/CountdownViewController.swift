@@ -73,11 +73,12 @@ class CountdownViewController: UIViewController {
         countdown.duration = duration
         
         timeLabel.font = UIFont.monospacedDigitSystemFont(ofSize: timeLabel.font.pointSize, weight: .medium)
+        updateViews()
         
         startButton.layer.cornerRadius = 12
         resetButton.layer.cornerRadius = 12
         
-        updateViews()
+
     }
     
     // MARK: - Actions
@@ -111,9 +112,9 @@ class CountdownViewController: UIViewController {
             timeLabel.text = string(from: countdown.timeRemaining)
             startButton.isEnabled = false
         case .finished:
-            timeLabel.text = String(0)
+            timeLabel.text = string(from: 0)
         case .reset:
-            timeLabel.text = String(countdown.duration)
+            timeLabel.text = string(from: countdown.duration)
         }
     }
     
