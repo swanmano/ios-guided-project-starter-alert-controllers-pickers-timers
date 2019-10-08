@@ -31,6 +31,13 @@ class CountdownViewController: UIViewController {
     
     private let countdown = Countdown()
     
+    private var dateFormatter: DateFormatter = {
+       let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm:ss.SS"
+        formatter.timeZone = TimeZone(secondsFromGMT: 0)
+        return formatter
+    }()
+    
     // MARK: - View Lifecycle
 
     override func viewDidLoad() {
@@ -38,6 +45,8 @@ class CountdownViewController: UIViewController {
         
         countdown.delegate = self
         countdown.duration = 5
+        
+        timeLabel.font = UIFont.monospacedDigitSystemFont(ofSize: timeLabel.font.pointSize, weight: .medium)
         updateViews()
     }
     
@@ -69,7 +78,7 @@ class CountdownViewController: UIViewController {
         
         switch countdown.state {
         case .started:
-            timeLabel.text = String(countdown.timeRemaining)
+            timeLabel.text = string(from: countdown.timeRemaining)
             startButton.isEnabled = false
         case .finished:
             timeLabel.text = String(0)
@@ -79,8 +88,8 @@ class CountdownViewController: UIViewController {
     }
     
     private func string(from duration: TimeInterval) -> String {
-        #warning("return a string value derived from the time interval passed in")
-        return ""
+        let date = Date(timeIntervalSinceReferenceDate: duration)
+        return dateFormatter.string(from: date)
     }
 }
 
